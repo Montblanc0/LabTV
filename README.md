@@ -4,10 +4,10 @@ A streaming platform mockup commissioned by my web development school for an int
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.6.
 
-> A patch to json-server to enable the [--no-delete-cascade](https://github.com/typicode/json-server/pull/756/files) flag is included and applied automatically.
+> A patch to json-server to enable the [--no-delete-cascade](https://github.com/typicode/json-server/pull/756/files) flag is included and applied automatically
 
-##Website Structure
-
+Website Structure
+------------
 ![LabTV Homepage](https://i.ibb.co/K24TPDh/labtv.jpg "LabTV Homepage")
 
 #### Header
@@ -61,16 +61,18 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Instructions
 - Point your terminal to the project root and run `npm install` to download project dependencies;
-> *json-server* will be automatically patched via a post-install script;
+> *json-server* will be automatically patched via a post-install script
 - Run `npm run start:server` to start json-server on port 3000.
 - Run `ng serve --open` and let it build the project. Your browser will open and take you to the project page.
 
 ## Build
-###Requirements
-A build is also provided, but still requires [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) to install some dependencies to enable login and database features.
-> If you don't install npm and/or project dependencies, the only features available will be Most Popular Movies (**Home**) and Search (**Ricerca**).
 
-###Instructions
+### Requirements
+A build is also provided, but still requires [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) to install some dependencies to enable login and database features.
+> If you don't install npm and/or project dependencies, the only features available will be Most Popular Movies (**Home**) and Search (**Ricerca**)
+
+### Instructions
+
 - Download the build and extract the archive;
 - Open a terminal into the extracted folder and run `npm i json-server json-server-auth patch-package` (just once);
 - Run `npx  patch-package` (just once);
@@ -84,11 +86,12 @@ This is most likely due to [IMDb-API](https://imdb-api.com/)  key usage limit to
 - [Register a new account](https://imdb-api.com/Identity/Account/Register) (it's free);
 - Go to your [profile page](https://imdb-api.com/Identity/Account/Manage) and copy your API key;
 - Open `src/app/services/api.service.ts` and replace the value for `myIMDbKey` with your own.
+-------------
 
-------------
+### Credits
 
-###Credits
 Icons: Uicons by Flaticon(https://www.flaticon.com/uicons)
+
 Font: MADE Tommy by MadeType(https://www.behance.net/madetype)
 
 
