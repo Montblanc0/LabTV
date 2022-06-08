@@ -1,0 +1,22 @@
+@import url("../search/search.component.css");
+
+div.errorMessage {
+  margin-top: 50px;
+  border: 5px solid #fff;
+  padding: 20px;
+  width: fit-content;
+  margin: 50px auto 0;
+  border-radius: 35px;
+}
+
+div.errorMessage h1 {
+  margin-top: 0;
+}
+
+.form-group {
+  padding-left: 15px;
+}
+
+.form-group input {
+  width: 360px;
+}

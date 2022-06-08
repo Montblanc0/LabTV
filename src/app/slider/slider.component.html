@@ -1,0 +1,7 @@
+<ngb-carousel *ngIf="featured">
+  <ng-template *ngFor="let pic of pics" ngbSlide>
+    <div class="picsum-img-wrapper">
+      <img [src]="pic" alt="Featured">
+    </div>
+  </ng-template>
+</ngb-carousel>

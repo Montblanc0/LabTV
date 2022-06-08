@@ -1,0 +1,54 @@
+<header>
+  <!--HAMBURGER E MENU LATERALE-->
+  <div id="burger" class="glow" (click)="toggleNav = !toggleNav" [ngClass]="{'moved': toggleNav}">
+    <img [src]="toggleNav ? 'assets/pics/fi-rr-arrow-left.svg' : 'assets/pics/fi-rr-menu-burger.svg'"
+      alt="Icona del Menu">
+  </div>
+  <nav id="menu" [ngClass]="{'hiddenLeft' : !toggleNav}">
+    <img src="assets/pics/logo-tipo2.png" alt="Logo di LabTV">
+    <ul>
+      <li class="glow" [routerLink]="['']"><a>Home</a></li>
+      <li class="glow" [routerLink]="['search']"><a>Ricerca</a></li>
+      <li class="glow" (click)="clearAll()"><a title="Reset">Guida TV</a></li>
+      <li class="glow"><a>Abbonamento</a></li>
+      <li class="glow" [ngClass]="{'clicked': isSubMenuVisible}" (click)="isSubMenuVisible = !isSubMenuVisible">
+        <a>Supporto</a><img class="arrowDown" [ngClass]="{'rotate': isSubMenuVisible}"
+          src="assets/pics/fi-rr-angle-small-down.svg"></li>
+    </ul>
+    <div class="relativeContainer">
+      <ul id="supporto" [ngClass]="{'hiddenUp': !isSubMenuVisible}">
+        <li class="glow"><a href="tel:3333333333" title="Chiamaci"><img src="assets/pics/phone.png"
+              alt="Chiamaci">Chiamaci</a>
+        </li>
+        <li class="glow"><a href="mailto:info@fakemail.fk" title="Scrivici"><img src="assets/pics/mail.png"
+              alt="Scrivici">Scrivici</a>
+        </li>
+        <li class="glow"><a href="https://wa.me/+393333333333" title="Chatta" onclick="event.preventDefault()"><img
+              src="assets/pics/chat.png" alt="Chatta">Chatta</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!--LOGO CENTRALE-->
+  <div id="logo" [routerLink]="['']" [ngClass]="{'hidden': toggleNav}"><a><img src="assets/pics/logo-tipo2.png"
+        alt="Logo di LabTV"></a>
+  </div>
+
+  <!--PANNELLO DI ACCESSO-->
+  <span class="glow" (click)="headerClick()">
+    <p id="headerText">{{headerText}}</p>
+    <img *ngIf="isLoggedIn" src="assets/pics/fi-rr-angle-small-down.svg" class="arrowDown onHeader"
+      [ngClass]="{'rotate': isDropDownVisible}">
+    <img id="userLogo" src="assets/pics/fi-rr-user.svg" alt="Icona Account">
+  </span>
+  <nav id="dropDown" [ngStyle]="isLoggedIn ? {'display': 'block'} : {'display': 'none'}"
+    [ngClass]="{'hiddenUp' : !isDropDownVisible}" (mouseleave)="isDropDownVisible = false">
+    <ul>
+      <li id="profpage" class="glow" (click)="openProfile()">Profilo</li>
+      <li id="catalogo" class="glow" [routerLink]="['/catalogo']">Catalogo</li>
+      <li id="preferiti" class="glow" [routerLink]="['/preferiti']">Preferiti</li>
+      <li id="logout" class="glow" (click)="logOut()">Esci</li>
+    </ul>
+  </nav>
+</header>

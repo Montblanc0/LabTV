@@ -1,0 +1,132 @@
+.hidden {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+form {
+  margin: 0 auto;
+  padding: 5px 0;
+  background: #fff;
+  border-radius: 10px;
+  border-top-right-radius: 0;
+}
+
+form div {
+  padding: 0 4rem;
+  margin: 2% auto;
+}
+
+
+form h2 {
+  text-align: center;
+  color: #000;
+  font-size: 2em;
+}
+
+form>div:last-child {
+  margin-bottom: 1.5rem;
+}
+
+/* Rimuove freccette number su Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Rimuove freccette number su Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+input:-webkit-autofill,
+input:autofill {
+  background: rgb(251, 244, 229);
+}
+
+form input {
+  box-shadow: none;
+  display: block;
+  padding: 10px;
+  outline: 0;
+  border: 1px #000 solid;
+  border-radius: 3px;
+  font-size: 1.3em;
+  width: 100%;
+  color: #000;
+}
+
+form input.valido,
+form textarea.valido {
+  border-color: #080;
+  background: rgb(235, 255, 235) url(assets/pics/check32.png) no-repeat right center;
+}
+
+form input.errore,
+form textarea.errore {
+  border-color: #f00;
+  background: rgb(255, 229, 229) url(assets/pics/cross32.png) no-repeat right center;
+}
+
+form input:focus,
+form textarea:focus {
+  border-color: #000;
+  background: rgb(251, 244, 229);
+
+}
+
+form span {
+  color: #f00;
+  display: block;
+  background-color: rgb(255, 229, 229);
+  padding: 5px;
+  opacity: 100%;
+}
+
+label {
+  display: block;
+  max-width: calc(100% - 5rem);
+  text-align: justify;
+  color: #000;
+}
+
+button:disabled:hover {
+  box-shadow: none;
+}
+
+button:disabled {
+  background-color: #949494;
+}
+
+button {
+  display: block;
+  font-size: 1.1em;
+  border-radius: 10px;
+  margin: 0 auto;
+  background-color: #F4523E;
+  color: #fff;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 7px;
+  border: 3px solid #000;
+  width: 100%;
+}
+
+button:hover {
+  box-shadow: 0 0 10px #f4523E;
+}
+
+form textarea {
+  color: #000;
+  display: block;
+  border: 1px solid;
+  border-radius: 3px;
+  box-shadow: none;
+  height: 8.15rem;
+  width: 100%;
+  resize: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 1.3rem;
+}

@@ -1,0 +1,179 @@
+<!--LOGIN-->
+<div *ngIf="(isRegLogVisible)" class="layer" id="reglogLayer">
+  <div *ngIf="hasAccount" class="wrapper form-group" id="logwrap">
+    <img class="close closeForm glow" src="assets/pics/fi-rr-cross-small.svg" alt="Chiudi" (click)="closeForms()">
+    <form #loginForm="ngForm" (ngSubmit)="login()" id="login" class="reglog">
+      <div>
+        <h2>Accesso</h2>
+      </div>
+      <div>
+        <input type="email" [(ngModel)]="logModel.email" name="email" #email="ngModel" class="form-control"
+          [ngClass]="{'valido': email.valid, 'errore':email.invalid && email.dirty}"
+          placeholder="Inserisci la tua email" autocomplete="off" minlength="6" required
+          pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$">
+        <span [ngClass]="{'hidden': email.valid || email.pristine}">L'email è troppo corta o invalida</span>
+      </div>
+      <div>
+        <input type="password" #password="ngModel" [(ngModel)]="logModel.password" name="pass" class="form-control"
+          [ngClass]="{'valido': password.valid, 'errore':password.invalid && password.dirty}"
+          placeholder="Inserisci la tua password" autocomplete="off" minlength="8" required pattern="^(?!.* ).{1,}$">
+        <span [ngClass]="{'hidden': password.valid || password.pristine}">La password è troppo corta o invalida</span>
+      </div>
+      <div class="condizioni">
+        <input type="checkbox" [(ngModel)]="isRememberChecked" autocomplete="off" name="ricorda" id="ricorda"
+          class="checkbox">
+        <label for="ricorda">Ricordami per 30 giorni</label>
+      </div>
+      <div>
+        <button type="submit" [disabled]="!loginForm.valid || loginForm.pristine">Accedi</button>
+      </div>
+      <div><span style="text-align: center" *ngIf="errorMessage">{{errorMessage}}</span></div>
+    </form>
+    <div class="haveaccount" id="noAccount">
+      <p>Non hai un account? <a href="#" onclick="event.preventDefault()" (click)="toggleRegLog()">Registrati</a></p>
+    </div>
+  </div>
+  <!--REGISTRAZIONE-->
+  <div *ngIf="!hasAccount" class="wrapper" id="regwrap">
+    <img class="close closeForm glow" src="assets/pics/fi-rr-cross-small.svg" alt="Chiudi" (click)="closeForms()">
+    <form #regForm="ngForm" (ngSubmit)="register()" id="registration" class="reglog">
+      <div>
+        <h2>Registrazione</h2>
+      </div>
+      <div>
+        <input type="email" [(ngModel)]="regModel.email" name="email" #email="ngModel" class="form-control"
+          [ngClass]="{'valido': email.valid, 'errore':email.invalid && email.dirty}"
+          placeholder="Inserisci la tua email" autocomplete="off" minlength="6" required
+          pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$">
+        <span [ngClass]="{'hidden': email.valid || email.pristine}">L'email è troppo corta o invalida</span>
+      </div>
+      <div>
+        <input type="password" #password="ngModel" [(ngModel)]="regModel.password" name="password" class="form-control"
+          [ngClass]="{'valido': password.valid, 'errore':password.invalid && password.dirty}"
+          placeholder="Crea una nuova password" autocomplete="off" minlength="8" required pattern="^(?!.* ).{1,}$">
+        <span [ngClass]="{'hidden': password.valid || password.pristine}">La password è troppo corta o invalida</span>
+      </div>
+      <div>
+        <input type="password" #repeat="ngModel" [(ngModel)]="passRepeat"
+          [ngClass]="{'valido': repeat.valid, 'errore':(repeat.invalid && repeat.dirty) || ((password.value != repeat.value)&& repeat.dirty )}"
+          class="form-control" placeholder="Digita di nuovo la password" name="repeat" id="repeat" autocomplete="off"
+          minlength="8" required pattern="^(?!.* ).{1,}$">
+        <span [ngClass]="{'hidden': repeat.pristine || (password.value == repeat.value) && repeat.valid}">Le password
+          devono combaciare</span>
+      </div>
+      <div class="condizioni">
+        <input type="checkbox" [(ngModel)]="isPolicyAccepted" autocomplete="off" name="tos" id="tos" class="checkbox"
+          required>
+        <label for="tos">Dichiaro di aver letto i <a href="#" onclick="event.preventDefault()">Termini e le Condizioni
+            di Servizio</a> e l'<a href="#" onclick="event.preventDefault()">Informativa sulla Privacy.</a></label>
+      </div>
+      <div>
+        <button type="submit" [disabled]="!regForm.valid || regForm.pristine">Registrati</button>
+      </div>
+      <div><span style="text-align: center" *ngIf="errorMessage">{{errorMessage}}</span></div>
+    </form>
+    <div class="haveaccount" id="yesAccount">
+      <p>Hai già un account? <a href="#" onclick="event.preventDefault()" (click)="toggleRegLog()">Accedi</a></p>
+    </div>
+  </div>
+</div>
+<!--PROFILO-->
+<div *ngIf="(isProfileVisible)" class="layer" id="profLayer">
+  <div class="wrapper" id="profwrap"><img class="close closeForm glow" src="assets/pics/fi-rr-cross-small.svg"
+      alt="Chiudi" (click)="closeForms()">
+    <form #profForm="ngForm" (ngSubmit)="aggiornaProfilo()" id="profilo">
+      <div>
+        <h2>Modifica Profilo</h2>
+      </div>
+      <section class="profPage" id="profPage1" [ngStyle]="{'display': isProfPage2Visible ? 'none' : 'block' }">
+        <div>
+          <label for="username">Username:</label>
+          <input type="text" name="username" #username="ngModel" [(ngModel)]="userModel.username" class="form-control"
+            [ngClass]="{'valido': username.valid && username.dirty && (username.value != '' && username.value != userDB.username), 'errore':username.invalid && username.dirty}"
+            placeholder="Cambia il nome utente" minlength="4" maxlength="25" pattern="^(?!.* ).{1,}$">
+          <span [ngClass]="{'hidden': username.valid || username.pristine}">L'username è troppo corto o contiene
+            spazi</span>
+        </div>
+        <div class="star">
+          <label for="email">
+            <p *ngIf="false">*</p> Email:
+          </label>
+          <input type="email" [(ngModel)]="userModel.email" name="email" #email="ngModel" class="form-control"
+            [ngClass]="{'valido': email.valid && email.dirty && (email.value != '' && email.value != userDB.email), 'errore':email.invalid && email.dirty}"
+            placeholder="Cambia l'email" autocomplete="off" minlength="6"
+            pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$">
+          <span [ngClass]="{'hidden': email.valid || email.pristine}">L'email è troppo corta o
+            invalida</span>
+        </div>
+        <div class="star">
+          <label for="password">
+            <p *ngIf="false">*</p> Password:
+          </label>
+          <input type="password" #password="ngModel" [(ngModel)]="userModel.password" name="password"
+            class="form-control"
+            [ngClass]="{'valido': password.valid && password.dirty && password.value!='', 'errore':password.invalid && password.dirty}"
+            placeholder="Cambia la password" autocomplete="off" minlength="8" pattern="^(?!.* ).{1,}$">
+          <span [ngClass]="{'hidden': password.valid || password.pristine}">La password è troppo corta o
+            invalida</span>
+        </div>
+        <div>
+          <input type="password" #passRepeat="ngModel" [(ngModel)]="changePassword"
+            [ngClass]="{'valido': passRepeat.valid && passRepeat.dirty && passRepeat.value == password.value && passRepeat.value != '', 'errore':(passRepeat.invalid && passRepeat.dirty) || passRepeat.value != ( password.value || '')}"
+            class="form-control" placeholder="Digita di nuovo la password" name="passRepeat" id="passRepeat"
+            autocomplete="off" minlength="8" pattern="^(?!.* ).{1,}$">
+          <span [ngClass]="{'hidden': passRepeat.valid && (passRepeat.value == ( password.value || ''))}">Le
+            password
+            devono combaciare</span>
+        </div>
+      </section>
+      <section class="profPage" id="profPage2" [ngStyle]="{'display': !isProfPage2Visible ? 'none' : 'block' }">
+        <div>
+          <label for="nome">Nome:</label>
+          <input type="text" name="name" #name="ngModel" [(ngModel)]="userModel.name" class="form-control"
+            [ngClass]="{'valido': name.valid && name.dirty && (name.value != '' && name.value != userDB.name), 'errore':name.invalid && name.dirty}"
+            maxlength="50" placeholder="Cambia il nome" pattern="^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{0,}$">
+          <span [ngClass]="{'hidden': name.valid || name.pristine}">Il nome contiene caratteri non validi</span>
+        </div>
+        <div>
+          <label for="cognome">Cognome:</label>
+          <input type="text" name="cognome" #surname="ngModel" [(ngModel)]="userModel.surname" class="form-control"
+            [ngClass]="{'valido': surname.valid && surname.dirty && (surname.value != '' && surname.value != userDB.surname), 'errore':surname.invalid && surname.dirty}"
+            maxlength="50" placeholder="Cambia il cognome"
+            pattern="^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{0,}$">
+          <span [ngClass]="{'hidden': surname.valid || surname.pristine}">Il cognome contiene caratteri non
+            validi</span>
+        </div>
+        <div>
+          <label for="tel">Numero:</label>
+          <input type="tel" name="tel" [(ngModel)]="userModel.tel" #tel="ngModel" class="form-control"
+            [ngClass]="{'valido': tel.valid && tel.dirty && (tel.value != '' && tel.value != userDB.tel), 'errore':tel.invalid && tel.dirty}"
+            placeholder="Cambia il numero" pattern="^(([+]|00)39)?((3[1-6][0-9]))(\d{7})$">
+          <span [ngClass]="{'hidden': tel.valid || tel.pristine}">Il numero è invalido o troppo corto</span>
+        </div>
+        <div>
+          <label for="bio">Biografia:</label>
+          <textarea name="bio" id="bio" name="bio" [(ngModel)]="userModel.bio" #bio="ngModel" class="form-control"
+            [ngClass]="{'valido': bio.valid && bio.dirty && (bio.value != '' && bio.value != userDB.bio), 'errore':bio.invalid && bio.dirty}"
+            cols="38" rows="7" autocomplete="off" placeholder="Massimo 140 caratteri" maxlength="140"
+            spellcheck="false"></textarea>
+          <span [ngClass]="{'hidden': bio.valid || bio.pristine}">Non deve superare i 140 caratteri</span>
+        </div>
+      </section>
+      <div id="pagineProfilo" [ngClass]="{'page2': isProfPage2Visible}">
+        <div class="profArrows profArrows-left flex-item" [ngClass]="{'hidden': !isProfPage2Visible}"
+          (click)="isProfPage2Visible = !isProfPage2Visible"><img src="assets/pics/fi-rr-angle-small-left.svg" alt="">
+        </div>
+        <div class="flex-item profH3">
+          <h3 *ngIf="!isProfPage2Visible">Pagina 1/2</h3>
+          <h3 *ngIf="isProfPage2Visible">Pagina 2/2</h3>
+        </div>
+        <div class="profArrows profArrows-right flex-item" [ngClass]="{'hidden': isProfPage2Visible}"
+          (click)="isProfPage2Visible = !isProfPage2Visible"><img src="assets/pics/fi-rr-angle-small-right.svg"></div>
+      </div>
+      <div>
+        <button type="submit">Conferma</button>
+      </div>
+      <div><span id="profSpan" *ngIf="errorMessage">{{errorMessage}}</span></div>
+    </form>
+  </div>
+</div>
