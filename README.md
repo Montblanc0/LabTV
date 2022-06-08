@@ -73,7 +73,7 @@ A build is also provided, but still requires [npm](https://docs.npmjs.com/downlo
 
 ### Instructions
 
-- Download the build and extract the archive;
+- [Download the build](https://github.com/Montblanc0/LabTV/files/8865654/LabTV-v1.0.0.zip) and extract the archive;
 - Open a terminal into the extracted folder and run `npm i json-server json-server-auth patch-package` (just once);
 - Run `npx  patch-package` (just once);
 - Run `npx json-server --no-delete-cascade --watch db/db.json -m ./node_modules/json-server-auth -r db/routes.json` (anytime you want to test the project);
