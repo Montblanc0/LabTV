@@ -1,0 +1,101 @@
+@import url(../../forms-essentials.css);
+
+.content-layer {
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  background-color: #000;
+}
+
+.content-view {
+  position: relative;
+  width: 100vw;
+  margin-top: 50px;
+  height: calc(100vh - 50px);
+  overflow: scroll;
+  overflow-x: hidden;
+
+}
+
+.content-absolute {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  padding: 0.5% 2% 2%;
+}
+
+#altro>p {
+  line-height: calc(10px + (38 - 10) * ((100vw - 300px) / (1903 - 800)));
+  padding-top: 0;
+  ;
+}
+
+#altro p:first-of-type {
+  margin-bottom: 1rem;
+}
+
+#altro p.small-detail {
+  font-weight: normal;
+  clear: both;
+  margin-top: 0;
+  font-size: calc(8px + (21 - 8) * ((100vw - 300px) / (1903 - 800)));
+  padding-top: 0;
+}
+
+#altro p:nth-of-type(2) {
+  margin-bottom: 0;
+}
+
+
+
+#altro>span.overlay-buttons {
+  max-width: 100%;
+  clear: both;
+  display: flex;
+  place-items: flex-start;
+  gap: 10px;
+}
+
+#altro .overlay-buttons>button {
+  float: left;
+  max-width: 240px;
+  min-width: 200px;
+  display: flex;
+  align-items: center;
+
+  justify-content: space-around;
+}
+
+#altro .overlay-buttons>button>p {
+  margin: 10px auto;
+}
+
+#altro .overlay-buttons>button>img {
+  margin-left: 5px;
+}
+
+@media screen and (max-height: 500px) {
+  .overlay-buttons+h2 {
+    display: none;
+  }
+
+  #stagioni {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  #altro {
+    margin: 1vw 1vw 0;
+  }
+
+  #altro>span.overlay-buttons {
+    width: 100%;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-content: center;
+  }
+}

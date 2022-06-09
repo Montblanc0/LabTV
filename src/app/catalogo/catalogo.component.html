@@ -1,0 +1,36 @@
+<div>
+  <h1 (click)="logCatalogo()">I miei film</h1>
+</div>
+
+<div class="errorMessage" *ngIf="errorMessage">
+  <h1>{{errorMessage}}</h1>
+</div>
+
+<div class="form-group" *ngIf="!errorMessage"><select [(ngModel)]="searchFilter">
+    <option value="title">Filtra per titolo</option>
+    <option value="stars">Filtra per attore</option>
+    <option value="year">Filtra per anno</option>
+  </select>
+  <input type="text" [(ngModel)]="searchTerm" class="form-control" id="cerca"
+    placeholder="Inserisci un termine di ricerca">
+</div>
+
+<div class="flex-container">
+  <div class="flex-item" *ngFor="let movie of (movies$ | async) |filter:searchFilter:searchTerm"
+    (click)="getMovieDetail(movie.id)">
+    <div class="card-container">
+      <div class="card">
+        <img src={{movie.image}} loading="lazy">
+      </div>
+
+    </div>
+    <div class="hovered">
+      <img src="assets/pics/fi-rr-play.svg">
+      <h4>{{movie.title}}</h4>
+      <h5>CAST: {{movie.stars}}</h5>
+      <p>({{movie.year}}) {{movie.runtimeStr}}</p>
+    </div>
+  </div>
+
+  <app-overlay *ngIf="isOverlayVisible" (closeOverlay)="hideOverlay($event)" [movie]="movie"
+    (addMovie)="addItem($event)" (deleteMovie)="removeItem($event)"></app-overlay>

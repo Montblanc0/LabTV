@@ -1,0 +1,35 @@
+<div class="content-layer">
+  <div class="content-view">
+    <div class="content-absolute">
+      <img class="close glow closeVideo" src="assets/pics/fi-rr-cross-small.svg" alt="Chiudi" (click)="hideOverlay()">
+
+      <app-player [movie]="movie"></app-player>
+
+      <div id="altro">
+        <h2>{{movie.title}}</h2>
+        <p>{{movie.plot}}</p>
+        <p class="small-detail">Regista: {{movie.directors}}</p>
+        <p class="small-detail">Cast: {{movie.stars}}</p>
+        <span class="overlay-buttons">
+          <button *ngIf="!hasMovie" (click)="buyMovie(movie.id)"><img src="assets/pics/fi-rr-shopping-cart-add.svg">
+            <p>Acquista</p>
+          </button>
+          <button *ngIf="hasMovie" (click)="returnMovie()"><img src="assets/pics/fi-rr-recycle.svg">
+            <p>Restituisci</p>
+          </button>
+          <button *ngIf="!likesMovie" (click)="likeMovie(movie.id)"><img src="assets/pics/fi-rr-heart.svg">
+            <p>Mi piace</p>
+          </button>
+          <button *ngIf="likesMovie" (click)="unlikeMovie()"><img src="assets/pics/fi-rr-heart-full.png">
+            <p>Mi piace</p>
+          </button>
+        </span>
+
+        <h2>Stagione 1</h2>
+        <div id="stagioni" *ngFor="let in of counter(5), let i = index"><img [src]="movie.image" loading="lazy">
+          <p>Episodio {{i+1}}</p><span><img src="assets/pics/fi-rr-play.svg"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+ngb-carousel {
+  max-width: 1500px;
+  margin: 1% auto;
+}
+
+::ng-deep .carousel-control-prev-icon {
+  background-image: url(../../assets/pics/fi-rr-angle-left.svg);
+  filter: invert(1)
+}
+
+::ng-deep .carousel-control-next-icon {
+  background-image: url(../../assets/pics/fi-rr-angle-right.svg);
+  filter: invert(1)
+}
+
+::ng-deep .carousel-indicators {
+  top: calc(100% - 25px);
+}
+
+::ng-deep button:hover {
+  box-shadow: none;
+}
+
+img {
+  max-width: 100%;
+  cursor: pointer
+}

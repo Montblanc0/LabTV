@@ -1,0 +1,14 @@
+<div id="fixed">
+  <app-header (showProfile)="showProfile($event)" (showForms)="showForms($event)"></app-header>
+</div>
+
+<div id="pusher"></div>
+
+<section>
+  <router-outlet (activate)="onActivate($event)"></router-outlet>
+</section>
+
+<app-footer></app-footer>
+
+<app-forms *ngIf="isFormsVisible" [isProfileVisible]="isProfileVisible" [isRegLogVisible]="isRegLogVisible"
+  (hideForms)="hideForms($event)"></app-forms>

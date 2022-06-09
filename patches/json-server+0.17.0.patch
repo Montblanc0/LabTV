@@ -1,0 +1,141 @@
+diff --git a/node_modules/json-server/lib/cli/bin.js b/node_modules/json-server/lib/cli/bin.js
+old mode 100755
+new mode 100644
+diff --git a/node_modules/json-server/lib/cli/index.js b/node_modules/json-server/lib/cli/index.js
+index aa42327..5b44965 100644
+--- a/node_modules/json-server/lib/cli/index.js
++++ b/node_modules/json-server/lib/cli/index.js
+@@ -81,7 +81,7 @@ module.exports = function () {
+       description: 'Path to config file',
+       default: 'json-server.json'
+     }
+-  }).boolean('watch').boolean('read-only').boolean('quiet').boolean('no-cors').boolean('no-gzip').help('help').alias('help', 'h').version(pkg.version).alias('version', 'v').example('$0 db.json', '').example('$0 file.js', '').example('$0 http://example.com/db.json', '').epilog('https://github.com/typicode/json-server').require(1, 'Missing <source> argument').argv;
++  }).boolean('watch').boolean('read-only').boolean('quiet').boolean('no-cors').boolean('no-delete-cascade').boolean('no-gzip').help('help').alias('help', 'h').version(pkg.version).alias('version', 'v').example('$0 db.json', '').example('$0 file.js', '').example('$0 http://example.com/db.json', '').epilog('https://github.com/typicode/json-server').require(1, 'Missing <source> argument').argv;
+ 
+   run(argv);
+ };
+\ No newline at end of file
+diff --git a/node_modules/json-server/lib/cli/run.js b/node_modules/json-server/lib/cli/run.js
+index 091708e..b30520f 100644
+--- a/node_modules/json-server/lib/cli/run.js
++++ b/node_modules/json-server/lib/cli/run.js
+@@ -47,11 +47,12 @@ function prettyPrint(argv, object, rules) {
+ function createApp(db, routes, middlewares, argv) {
+   const app = jsonServer.create();
+   const {
+-    foreignKeySuffix
++    foreignKeySuffix,
++    noDeleteCascade
+   } = argv;
+   const router = jsonServer.router(db, foreignKeySuffix ? {
+-    foreignKeySuffix
+-  } : undefined);
++    foreignKeySuffix, noDeleteCascade
++  } : {undefined, noDeleteCascade});
+   const defaultsOpts = {
+     logger: !argv.quiet,
+     readOnly: argv.readOnly,
+diff --git a/node_modules/json-server/lib/server/mixins.js b/node_modules/json-server/lib/server/mixins.js
+index fb8d0f7..264768f 100644
+--- a/node_modules/json-server/lib/server/mixins.js
++++ b/node_modules/json-server/lib/server/mixins.js
+@@ -7,42 +7,39 @@ const {
+ const pluralize = require('pluralize');
+ 
+ module.exports = {
+-  getRemovable,
++  getDependents,
+   createId,
+   deepQuery
+ }; // Returns document ids that have unsatisfied relations
+ // Example: a comment that references a post that doesn't exist
+ 
+-function getRemovable(db, opts) {
++/**
++ * Return documents which are dependent on the specified foreign field
++ * Example: a comment that references a post that doesn't exist
++ *
++ * @param {object} db - The entire database object
++ * @param {string} foreignField - The foreign field name. e.g. "postId"
++ * @param {string|number} foreignId - The foreign field id to match
++ * @return {[{name: string, id: string|number]} - Array of dependent objects with resource names and ids
++ */
++function getDependents(db, foreignField, foreignId) {
+   const _ = this;
+-
+-  const removable = [];
+-
+-  _.each(db, (coll, collName) => {
+-    _.each(coll, doc => {
+-      _.each(doc, (value, key) => {
+-        if (new RegExp(`${opts.foreignKeySuffix}$`).test(key)) {
+-          // Remove foreign key suffix and pluralize it
+-          // Example postId -> posts
+-          const refName = pluralize.plural(key.replace(new RegExp(`${opts.foreignKeySuffix}$`), '')); // Test if table exists
+-
+-          if (db[refName]) {
+-            // Test if references is defined in table
+-            const ref = _.getById(db[refName], value);
+-
+-            if (_.isUndefined(ref)) {
+-              removable.push({
+-                name: collName,
+-                id: doc.id
+-              });
+-            }
+-          }
+-        }
+-      });
+-    });
+-  });
+-
+-  return removable;
++  return _.reduce(
++    db,
++    (acc, table, tableName) =>
++      // only work on arrays; object are irrelevant
++      !_.isArray(table)
++        ? acc
++        : table
++            .filter(
++              doc =>
++                // perform a type-insensitive comparison (so we could compare '2' to 2
++                _.get(doc, foreignField, '').toString() === foreignId.toString()
++            )
++            .map(doc => ({ name: tableName, id: doc.id }))
++            .concat(acc),
++    []
++  )
+ } // Return incremented id or uuid
+ // Used to override lodash-id's createId with utils.createId
+ 
+diff --git a/node_modules/json-server/lib/server/router/plural.js b/node_modules/json-server/lib/server/router/plural.js
+index 3e898ce..99a69e6 100644
+--- a/node_modules/json-server/lib/server/router/plural.js
++++ b/node_modules/json-server/lib/server/router/plural.js
+@@ -282,13 +282,18 @@ module.exports = (db, name, opts) => {
+     if (opts._isFake) {
+       resource = db.get(name).value();
+     } else {
+-      resource = db.get(name).removeById(req.params.id).value(); // Remove dependents documents
+-
+-      const removable = db._.getRemovable(db.getState(), opts);
+-
+-      removable.forEach(item => {
+-        db.get(item.name).removeById(item.id).value();
+-      });
++      resource = db.get(name).removeById(req.params.id).value();
++      if (!opts.noDeleteCascade) {
++      // Remove dependents documents
++      const prop = `${pluralize.singular(name)}${opts.foreignKeySuffix}`
++      const dependents = db._.getDependents(db.getState(), prop, req.params.id)
++      dependents.forEach(item => {
++        db
++          .get(item.name)
++          .removeById(item.id)
++          .value()
++      })
++    }
+     }
+ 
+     if (resource) {
