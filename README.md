@@ -8,7 +8,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Website Structure
 ------------
-![LabTV Homepage](https://i.ibb.co/K24TPDh/labtv.jpg "LabTV Homepage")
+![LabTV Homepage](https://i.ibb.co/s1gv13v/labtv1-1.jpg "LabTV Homepage")
 
 #### Header
 - A menu button revealing a sidebar with links. The working links are **Home** and **Ricerca** (search) . The **Guida TV** link actually clears the local storage;
