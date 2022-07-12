@@ -1,47 +1,47 @@
 <div class="form-group">
-  <form #searchForm="ngForm" (ngSubmit)="search($event)" novalidate>
-    <input #cerca="ngModel" type="text" [(ngModel)]="searchTerm" class="form-control" id="cerca" name="cerca"
-      placeholder="Inserisci un titolo" required>
-    <button
-      [disabled]="!searchForm.valid || searchForm.pristine || (searchForm.submitted && cerca.value === submittedText)"
-      type="submit">Cerca</button>
-  </form>
+    <form #searchForm="ngForm" (ngSubmit)="search($event)" novalidate>
+        <input #cerca="ngModel" type="text" [(ngModel)]="searchTerm" class="form-control" id="cerca" name="cerca"
+            placeholder="Inserisci un titolo" required>
+        <button
+            [disabled]="!searchForm.valid || searchForm.pristine || (searchForm.submitted && cerca.value === submittedText)"
+            type="submit">Cerca</button>
+    </form>
 </div>
 
 <div *ngIf="isLoading" class="loading-container">
-  <div class="loading">
-    <div></div>
-    <!--important-->
-    <div></div>
-    <!--important-->
-    <div></div>
-    <!--important-->
-  </div>
+    <div class="loading">
+        <div></div>
+        <!--important-->
+        <div></div>
+        <!--important-->
+        <div></div>
+        <!--important-->
+    </div>
 </div>
 
 <div class="results" *ngIf="errorMessage && !isLoading">
-  <h1>{{errorMessage}}</h1>
+    <h1>{{errorMessage}}</h1>
 </div>
 
 <div class="results" *ngIf="isDataReady && !isLoading">
-  <h1 *ngIf="resultCount!==(1 || 0)">Ho trovato {{resultCount}} risultati:</h1>
-  <h1 *ngIf="resultCount===1">Ho trovato {{resultCount}} risultato:</h1>
-  <h1 *ngIf="resultCount===0">Nessun risultato</h1>
-  <div class="flex-container">
-    <div class="flex-item" *ngFor="let result of data" (click)="getMovieDetail(result.id)">
-      <div class="card-container">
-        <div class="card">
-          <img src={{result.image}} loading="lazy">
-        </div>
+    <h1 *ngIf="resultCount > 1">Ho trovato {{resultCount}} risultati:</h1>
+    <h1 *ngIf="resultCount===1">Ho trovato {{resultCount}} risultato:</h1>
+    <h1 *ngIf="resultCount===0">Nessun risultato</h1>
+    <div class="flex-container">
+        <div class="flex-item" *ngFor="let result of data" (click)="getMovieDetail(result.id)">
+            <div class="card-container">
+                <div class="card">
+                    <img src={{result.image}} loading="lazy">
+                </div>
 
-      </div>
-      <div class="hovered">
-        <img src="assets/pics/fi-rr-play.svg">
-        <h4>{{result.title}}</h4>
-        <p>{{result.description |slice:0:60}}</p>
-      </div>
+            </div>
+            <div class="hovered">
+                <img src="assets/pics/fi-rr-play.svg">
+                <h4>{{result.title}}</h4>
+                <p>{{result.description |slice:0:60}}</p>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <app-overlay *ngIf="isOverlayVisible" (closeOverlay)="hideOverlay($event)" [movie]="movie"></app-overlay>

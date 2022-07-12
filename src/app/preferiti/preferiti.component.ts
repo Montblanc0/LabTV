@@ -65,6 +65,7 @@ export class PreferitiComponent implements OnInit {
 		}
 		this.isOverlayVisible = true;
 	}
+
 	hideOverlay(bit: boolean): void {
 		if (bit) this.isOverlayVisible = false;
 	}
@@ -83,12 +84,12 @@ export class PreferitiComponent implements OnInit {
 						if (error.status == 401) {
 							if (error.error == "jwt expired")
 								this.errorMessage =
-									"La sessione è scaduta. Accedi di nuovo.";
+									"La sessione è scaduta, accedi di nuovo";
 							else
 								this.errorMessage =
-									"Non sei autorizzato ad accedere a questa risorsa.";
+									"Non sei autorizzato ad accedere a questa risorsa";
 						} else {
-							this.errorMessage = "Server non raggiungibile.";
+							this.errorMessage = "Server non raggiungibile";
 						}
 					}
 					return of([]);
@@ -106,7 +107,7 @@ export class PreferitiComponent implements OnInit {
 				} else if (this.errorMessage) {
 					return;
 				} else
-					this.errorMessage = "La tua lista è momentaneamente vuota.";
+					this.errorMessage = "La tua lista è momentaneamente vuota";
 				console.log(this.preferiti);
 			});
 	}
@@ -122,6 +123,9 @@ export class PreferitiComponent implements OnInit {
 		_.remove(this.preferiti, (item: any) => {
 			return item.id === movieId;
 		});
+		if (!this.preferiti.length) {
+			this.errorMessage = "La tua lista è momentaneamente vuota";
+		}
 		console.log("pref removed");
 		console.log(this.preferiti);
 	}

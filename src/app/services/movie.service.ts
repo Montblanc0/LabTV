@@ -1,25 +1,22 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import * as _ from "lodash";
-import { filter, map, Observable, of, switchMap } from "rxjs";
+import { map, Observable } from "rxjs";
 import Movie from "../models/movies.model";
 import { AuthService } from "./auth.service";
-import { LocalStorageService } from "./local-storage.service";
 import { BehaviorSubject } from "rxjs";
 @Injectable({
 	providedIn: "root",
 })
+
+//Interagisce con il database di json-server
 export class MovieService {
 	private JSON_SRV = "http://localhost:3000/";
 
-	private lastSeen = new BehaviorSubject<string>("");
-	seenStatus = this.lastSeen.asObservable();
+	// private lastSeen = new BehaviorSubject<string>("");
+	// seenStatus = this.lastSeen.asObservable();
 
-	constructor(
-		private http: HttpClient,
-		private ls: LocalStorageService,
-		private auth: AuthService
-	) {}
+	constructor(private http: HttpClient, private auth: AuthService) {}
 
 	addMovie(movie: any): Observable<any> {
 		const user = this.auth.getUser();
@@ -74,7 +71,7 @@ export class MovieService {
 			);
 	}
 
-	setLastSeen(movieId: string) {
-		this.lastSeen.next(movieId);
-	}
+	// setLastSeen(movieId: string) {
+	// 	this.lastSeen.next(movieId);
+	// }
 }

@@ -65,6 +65,7 @@ export class CatalogoComponent implements OnInit {
 		}
 		this.isOverlayVisible = true;
 	}
+
 	hideOverlay(bit: boolean): void {
 		if (bit) this.isOverlayVisible = false;
 	}
@@ -83,12 +84,12 @@ export class CatalogoComponent implements OnInit {
 						if (error.status == 401) {
 							if (error.error == "jwt expired")
 								this.errorMessage =
-									"La sessione è scaduta. Accedi di nuovo.";
+									"La sessione è scaduta, accedi di nuovo";
 							else
 								this.errorMessage =
-									"Non sei autorizzato ad accedere a questa risorsa.";
+									"Non sei autorizzato ad accedere a questa risorsa";
 						} else {
-							this.errorMessage = "Server non raggiungibile.";
+							this.errorMessage = "Server non raggiungibile";
 						}
 					}
 					return of([]);
@@ -107,7 +108,7 @@ export class CatalogoComponent implements OnInit {
 					return;
 				} else
 					this.errorMessage =
-						"Il tuo catalogo è momentaneamente vuoto.";
+						"Il tuo catalogo è momentaneamente vuoto";
 				console.log(this.catalogo);
 			});
 	}
@@ -122,6 +123,9 @@ export class CatalogoComponent implements OnInit {
 		_.remove(this.catalogo, (item: any) => {
 			return item.id === movieId;
 		});
+		if (!this.catalogo.length) {
+			this.errorMessage = "Il tuo catalogo è momentaneamente vuoto";
+		}
 		console.log("item removed");
 		console.log(this.catalogo);
 	}

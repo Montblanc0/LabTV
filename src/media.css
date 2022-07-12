@@ -9,33 +9,6 @@ section>h2 {
   font-size: calc(17.23px + (32 - 17.23) * ((100vw - 300px) / (1903 - 300)));
 }
 
-/*GESTIONE OVERLAY PLAYER*/
-#player {
-  margin: auto;
-  margin-top: 4vh;
-  /*Aggiungo padding e border a width e height
-    per mantenere la ratio del video a 720p*/
-  max-width: calc(1000px + 68px);
-  max-height: calc(563px + 68px);
-  /* max-width: calc(1200px + 68px);
-    max-height: calc(675px + 68px); */
-  /* max-width: calc(1280px + 68px);
-    max-height: calc(720px + 68px); */
-  border: 4px solid #f4523e;
-  border-radius: 30px;
-  padding: 30px;
-}
-
-video,
-iframe {
-  width: 100%;
-  height: 100%;
-}
-
-/*workaround Chrome: poster esce dai bordi*/
-video {
-  max-height: 562.5px;
-}
 
 #altro {
   position: sticky;
@@ -149,31 +122,14 @@ img.closeVideo {
   filter: invert(1);
 }
 
-.iframeContainer {
-  position: relative;
-  padding-bottom: 56.25%;
-  /*56.25 è 16/9 per mantenere ratio*/
-  height: 0;
-  overflow: hidden;
-}
-
-.iframeContainer iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
 @media only screen and (min-width: 3000px) {
 
-  #player {
-    /* max-width: calc(1280px + 68px);
-        max-height: calc(720px + 68px); */
+  .player {
     max-width: calc(1920px + 68px);
     max-height: calc(1080px + 68px);
   }
 
   video {
-    /* max-height: 720px; */
     max-height: 1080px;
   }
 

@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthService } from "../services/auth.service";
 import { LocalStorageService } from "../services/local-storage.service";
+import ReglogOverlayService from "../services/reglog-overlay.service";
 
 @Component({
 	selector: "app-header",
@@ -21,7 +22,8 @@ export class HeaderComponent implements OnInit {
 	constructor(
 		private auth: AuthService,
 		private ls: LocalStorageService,
-		private router: Router
+		private router: Router,
+		private emitter: ReglogOverlayService
 	) {}
 
 	ngOnInit(): void {
@@ -52,7 +54,9 @@ export class HeaderComponent implements OnInit {
 		this.ls.del("user");
 		this.auth.changeStatus(false);
 		this.router.navigate([""]);
+		this.emitter.refreshSignal(true);
 	}
+
 	openForms(): void {
 		this.showForms.emit(1);
 	}
@@ -61,6 +65,7 @@ export class HeaderComponent implements OnInit {
 		if (!this.isLoggedIn) this.openForms();
 		else this.dropDownToggle();
 	}
+
 	openProfile(): void {
 		this.showProfile.emit(1);
 	}

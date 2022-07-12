@@ -38,6 +38,7 @@ export class AuthService {
 			headers: { Authorization: "Bearer " + user?.accessToken },
 		});
 	}
+
 	putUser(id: number, model: any) {
 		const user = this.getUser();
 		return this.http.put<any>(this.JSON_SRV + "users/" + id, model, {

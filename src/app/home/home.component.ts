@@ -9,7 +9,6 @@ import * as _ from "lodash";
 	styleUrls: ["./home.component.css"],
 })
 export class HomeComponent implements OnInit {
-	constructor(private api: ApiService, private cache: LocalStorageService) {}
 	data: any = [];
 	isDataReady: boolean = false;
 	movie: any = "";
@@ -29,9 +28,13 @@ export class HomeComponent implements OnInit {
 	start: number = 0;
 	sum: number = 10;
 
+	constructor(private api: ApiService, private cache: LocalStorageService) {}
+
 	getArray(): void {
+		//testing method
 		console.log("response$: ", this.response$);
 		console.log("movies$", this.movies$);
+		this.getMostPopular();
 	}
 
 	ngOnInit(): void {
@@ -68,6 +71,7 @@ export class HomeComponent implements OnInit {
 	getMostPopular() {
 		this.api.mostPopular().subscribe(
 			data => {
+				console.log(data.items);
 				this.response$ = data.items;
 				this.cache.set("mostPopular", data.items);
 				this.addItems(this.start, this.sum, this.response$);

@@ -2,33 +2,34 @@
 
 <h1 (click)="getArray()">I titoli del momento</h1>
 
-<div class="form-group"><select [(ngModel)]="searchFilter">
-    <option value="title">Filtra per titolo</option>
-    <option value="crew">Filtra per attore</option>
-    <option value="year">Filtra per anno</option>
-  </select>
-  <input type="text" [(ngModel)]="searchTerm" class="form-control" id="cerca"
-    placeholder="Inserisci un termine di ricerca"></div>
+<div class="form-group">
+    <select [(ngModel)]="searchFilter">
+        <option value="title">Filtra per titolo</option>
+        <option value="crew">Filtra per attore</option>
+        <option value="year">Filtra per anno</option>
+    </select>
+    <input type="text" [(ngModel)]="searchTerm" class="form-control" id="cerca"
+        placeholder="Inserisci un termine di ricerca"></div>
 
 <div *ngIf="isDataReady" class="flex-container" infinite-scroll [infiniteScrollDistance]="scrollDistance"
-  [infiniteScrollUpDistance]="scrollUpDistance" [infiniteScrollThrottle]="throttle" (scrolled)="onScrollDown()">
+    [infiniteScrollUpDistance]="scrollUpDistance" [infiniteScrollThrottle]="throttle" (scrolled)="onScrollDown()">
 
-  <div class="flex-item" *ngFor="let film of movies$ | filter:searchFilter:searchTerm"
-    (click)="getMovieDetail(film.id)">
-    <div class="card-container">
-      <div class="card">
-        <img src={{film.image}} loading="lazy">
-      </div>
+    <div class="flex-item" *ngFor="let film of movies$ | filter:searchFilter:searchTerm"
+        (click)="getMovieDetail(film.id)">
+        <div class="card-container">
+            <div class="card">
+                <img src={{film.image}} loading="lazy">
+            </div>
 
+        </div>
+        <div class="hovered">
+            <img src="assets/pics/fi-rr-play.svg">
+            <h4>{{film.title}}</h4>
+            <h5>CAST: {{film.crew}}</h5>
+            <p>ANNO: {{film.year}}, VOTO: {{film.imDbRating}}
+            </p>
+        </div>
     </div>
-    <div class="hovered">
-      <img src="assets/pics/fi-rr-play.svg">
-      <h4>{{film.title}}</h4>
-      <h5>CAST: {{film.crew}}</h5>
-      <p>ANNO: {{film.year}}, VOTO: {{film.imDbRating}}
-      </p>
-    </div>
-  </div>
 </div>
 
 <app-overlay *ngIf="isOverlayVisible" (closeOverlay)="hideOverlay($event)" [movie]="movie"></app-overlay>

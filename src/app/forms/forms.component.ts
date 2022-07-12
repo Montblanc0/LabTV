@@ -15,6 +15,7 @@ import { AuthService } from "../services/auth.service";
 import { LocalStorageService } from "../services/local-storage.service";
 import * as _ from "lodash";
 import * as $ from "jquery";
+import ReglogOverlayService from "../services/reglog-overlay.service";
 
 @Component({
 	selector: "app-forms",
@@ -26,7 +27,8 @@ export class FormsComponent implements OnInit, OnDestroy {
 		private auth: AuthService,
 		private ls: LocalStorageService,
 		@Inject(DOCUMENT) private document: Document,
-		private renderer: Renderer2
+		private renderer: Renderer2,
+		private emitter: ReglogOverlayService
 	) {}
 
 	@Input() isRegLogVisible = false;
@@ -77,6 +79,7 @@ export class FormsComponent implements OnInit, OnDestroy {
 		this.renderer.removeClass(this.document.body, "no-scroll");
 		this.subscription.unsubscribe();
 	}
+
 	toggleRegLog(): void {
 		this.errorMessage = "";
 		this.hasAccount = !this.hasAccount;
@@ -128,12 +131,14 @@ export class FormsComponent implements OnInit, OnDestroy {
 	finalizeLogin() {
 		this.auth.changeStatus(true);
 		this.closeForms();
+		this.emitter.refreshSignal(true);
 	}
 
 	logOut() {
 		this.ls.del("user");
 		this.closeForms();
 		this.auth.changeStatus(false);
+		this.emitter.refreshSignal(true);
 	}
 
 	aggiornaProfilo(): void {

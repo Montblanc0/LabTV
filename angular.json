@@ -40,11 +40,6 @@
 								"glob": "patches/**",
 								"input": "./",
 								"output": "./"
-							},
-							{
-								"glob": "README.md",
-								"input": "./",
-								"output": "./"
 							}
 						],
 						"styles": [

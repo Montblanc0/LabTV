@@ -1,219 +1,220 @@
 header {
-  max-height: 50px;
-  max-width: 100vw;
-  overflow: hidden;
-  font-weight: bold;
-  position: relative;
-  background-color: rgb(61, 61, 61);
+    max-height: 50px;
+    max-width: 100vw;
+    overflow: hidden;
+    font-weight: bold;
+    position: relative;
+    background-color: #393840;
 }
 
 
 #burger {
-  float: left;
-  position: absolute;
-  left: 0;
-  width: 80px;
-  height: 50px;
-  padding-left: 0px;
-  cursor: pointer;
+    float: left;
+    position: absolute;
+    left: 0;
+    width: 80px;
+    height: 50px;
+    padding-left: 0px;
+    cursor: pointer;
 }
 
 #burger.moved {
-  left: 200px;
+    left: 200px;
 }
 
 #burger>img {
-  display: block;
-  max-height: 2.3em;
-  margin: calc(calc(50px - 2.3em) / 2) auto;
-  filter: invert(1);
+    display: block;
+    max-height: 2.3em;
+    margin: calc(calc(50px - 2.3em) / 2) auto;
+    filter: invert(1);
 }
 
 #menu {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 200px;
-  line-height: 2em;
-  font-size: 1.6em;
-  background-color: rgb(61, 61, 61);
-  text-indent: 10px;
-  transition: 0.3s;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 200px;
+    line-height: 2em;
+    font-size: 1.6em;
+    background-color: #393840;
+    text-indent: 10px;
+    transition: 0.3s;
 
 }
 
 #menu img {
-  max-width: 100%;
-  height: 50px;
+    max-width: 100%;
+    height: 50px;
 }
 
 #menu a {
-  text-decoration: none;
-  color: #fff;
+    text-decoration: none;
+    color: #fff;
 }
 
 #menu ul {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 #menu>ul>li {
-  height: 51.2px;
+    height: 51.2px;
 }
 
 #menu li:last-child {
-  overflow: hidden;
+    overflow: hidden;
 }
 
 #menu li:last-child>a {
-  float: left;
+    float: left;
 }
 
 .arrowDown {
-  filter: invert(1);
-  width: 32px;
-  display: block;
-  float: left;
-  margin: 1.5px 5px;
-  margin-top: 3px;
-  transition: 0.5s;
+    filter: invert(1);
+    width: 32px;
+    display: block;
+    float: left;
+    margin: 1.5px 5px;
+    margin-top: 3px;
+    transition: 0.5s;
 }
 
 .arrowDown.onHeader {
-  margin-top: 7px;
+    margin-top: 7px;
 }
 
 .rotate {
-  transform: rotate(-180deg);
-  margin-top: 1px;
+    transform: rotate(-180deg);
+    margin-top: 1px;
 }
 
 .arrowDown.onHeader.rotate {
-  margin-top: 4.7px;
+    margin-top: 4.7px;
 }
 
 header .relativeContainer {
-  position: relative;
-  height: 153.6px;
-  overflow: hidden;
+    position: relative;
+    height: 153.6px;
+    overflow: hidden;
 }
 
 #supporto.hiddenUp {
-  top: -153.6px;
+    top: -153.6px;
 }
 
 #supporto {
-  width: 200px;
-  height: 153.6px;
-  margin: 0 auto;
-  text-align: justify;
-  position: absolute;
-  top: 0;
-  left: 0;
-  transition: 0.5s;
+    width: 200px;
+    height: 153.6px;
+    margin: 0 auto;
+    text-align: justify;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: 0.5s;
 }
 
 #menu li.clicked {
-  background-color: rgb(124, 124, 124);
+    background-color: #706D75;
 }
 
 #supporto li:hover {
-  background-color: #f4523e;
+    background-color: #f4523e;
 }
 
 #supporto li {
-  background-color: rgb(124, 124, 124);
+    background-color: #706D75;
 }
 
 #supporto img {
-  width: 20px;
-  height: 20px;
-  filter: invert(1);
-  margin-right: 15px;
+    width: 20px;
+    height: 20px;
+    filter: invert(1);
+    margin-right: 15px;
 }
 
 #supporto li a {
-  display: block;
-  width: 100%;
+    display: block;
+    width: 100%;
 }
 
 #menu.hiddenLeft {
-  left: -200px;
+    left: -200px;
 }
 
 #logo {
-  width: calc(124.533px + 20px);
-  padding: 0 10px;
-  height: 50px;
-  background-color: #f4523e;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  position: absolute;
-  top: 0;
-  left: calc(calc(100vw - 144.533px) / 2);
-  transition: 0.3s;
-  cursor: pointer;
+    width: calc(124.533px + 20px);
+    padding: 0 10px;
+    height: 50px;
+    position: absolute;
+    top: 0;
+    left: calc(calc(100vw - 144.533px) / 2);
+    transition: 0.3s;
+    cursor: pointer;
 }
 
 #logo img {
-  width: 100%;
-  display: block;
+    width: 100%;
+    display: block;
 
 }
 
 .hidden {
-  opacity: 0;
-  pointer-events: none;
+    opacity: 0;
+    pointer-events: none;
 }
 
 header>span {
-  float: right;
-  height: 50px;
-  padding: 3px;
-  cursor: pointer;
+    float: right;
+    height: 50px;
+    padding: 3px;
+    cursor: pointer;
 }
 
 header>span>p {
-  float: left;
-  font-size: 1.35em;
-  margin: calc(calc(50px - 1.35em) / 2) auto;
+    float: left;
+    font-size: 1.35em;
+    margin: calc(calc(50px - 1.35em) / 2) auto;
 }
 
 header>span>img {
-  max-height: 2em;
-  filter: invert(1)
+    max-height: 2em;
+    filter: invert(1)
 }
 
 #userLogo {
-  margin: 0.3em 10px;
-  float: right;
+    margin: 0.3em 10px;
+    float: right;
 }
 
 #dropDown.hiddenUp {
-  top: -120px;
+    top: -120px;
 }
 
 #dropDown {
-  position: fixed;
-  top: 50px;
-  left: calc(100% - 120px);
-  width: 120px;
-  background-color: #3d3d3d;
-  border: 5px solid #3d3d3d;
-  border-bottom-left-radius: 5px;
-  z-index: -1;
-  transition: 0.4s;
+    position: fixed;
+    top: 50px;
+    left: calc(100% - 120px);
+    width: 120px;
+    background-color: #393840;
+    border: 5px solid #393840;
+    border-bottom-left-radius: 5px;
+    z-index: -1;
+    transition: 0.4s;
+}
+
+#dropDown li:hover {
+    background-color: #f4523e;
 }
 
 #dropDown li {
-  font-size: 1.2em;
-  text-indent: 5px;
-  padding: 10px 5px;
-  cursor: pointer;
+    font-size: 1.2em;
+    text-indent: 5px;
+    padding: 10px 5px;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 1024px) {
-  #headerText {
-    display: none;
-  }
+    #headerText {
+        display: none;
+    }
 }
