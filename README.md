@@ -90,8 +90,8 @@ This is most likely due to [IMDb-API](https://imdb-api.com/)  key usage limit to
 
 ### Credits
 
-Icons: Uicons by Flaticon(https://www.flaticon.com/uicons)
+Icons: [Uicons by Flaticon](https://www.flaticon.com/uicons)
 
-Font: MADE Tommy by MadeType(https://www.behance.net/madetype)
+Font: [MADE Tommy by MadeType](https://www.behance.net/madetype)
 
 
